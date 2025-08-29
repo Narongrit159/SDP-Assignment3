@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  api-dev:
+    build:
+      context: ./api-dev
+    container_name: api-dev
+    ports:
+      - "8081:5000"
+    depends_on:
+      - db-dev
+    environment:
+      - FLASK_ENV=development
+      - DB_HOST=db-dev
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+      - DB_NAME=mydb_dev
+
+  api-test:
+    build:
+      context: ./api-test
+    container_name: api-test
+    ports:
+      - "8082:5000"
+    depends_on:
+      - db-test
+    environment:
+      - FLASK_ENV=test
+      - DB_HOST=db-test
+      - DB_USER=myuser
+      - DB_PASSWORD=mypass
+      - DB_NAME=mydb_test
+
+  db-dev:
+    image: mysql:8
+    container_name: db-dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydb_dev
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_dev_data:/var/lib/mysql
+
+  db-test:
+    image: mysql:8
+    container_name: db-test
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydb_test
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypass
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_test_data:/var/lib/mysql
+
+volumes:
+  db_dev_data:
+  db_test_data:

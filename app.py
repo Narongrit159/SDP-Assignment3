@@ -1,14 +1,15 @@
 from flask import Flask,request, jsonify
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
 def get_db_connection():
     conn = mysql.connector.connect(
-        host="192.168.109.133",
-        user="myuser",
-        password="mypass",
-        database="DBdev",
+        host=os.environ.get("DB_HOST"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD"),
+        database=os.environ.get("DB_NAME"),
         port=3306
     )
     return conn
