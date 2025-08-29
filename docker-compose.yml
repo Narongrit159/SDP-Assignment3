@@ -3,7 +3,7 @@ version: "3.9"
 services:
   api-dev:
     build:
-      context: ./api-dev
+      context: /api-dev
     container_name: api-dev
     ports:
       - "8081:5000"
@@ -18,7 +18,7 @@ services:
 
   api-test:
     build:
-      context: ./api-test
+      context: /api-test
     container_name: api-test
     ports:
       - "8082:5000"
