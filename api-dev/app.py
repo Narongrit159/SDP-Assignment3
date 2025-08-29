@@ -10,7 +10,7 @@ def get_db_connection():
         user=os.environ.get("DB_USER"),
         password=os.environ.get("DB_PASSWORD"),
         database=os.environ.get("DB_NAME"),
-        port=3307
+        port=3306
     )
     return conn
 
@@ -46,5 +46,7 @@ def update_age_url():
 
     return f"Updated user {user_id} age to {new_age}"
 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+    
